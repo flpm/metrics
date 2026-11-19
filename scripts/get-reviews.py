@@ -19,6 +19,7 @@ REPO_NAME = "software-submission"
 # Keep batches modest vs GraphQL complexity / payload size.
 LAST_COMMENT_BATCH_SIZE = 50
 
+# Authoritative definition of label names and which status the package is at
 ISSUE_MAP = {
     "New Submission!": "pre-review",
     "0/pre-review-checks": "pre-review",
@@ -34,15 +35,18 @@ ISSUE_MAP = {
     "9/joss-approved": "joss-accepted",
 }
 
-# Stages 6-9 all come after pyOpenSci acceptance; the JOSS stages are tracked
-# separately in joss_status so accepted counts don't need to sum buckets.
+# These labels indicate a package is accepted by PyOS
 PYOS_ACCEPTED_LABELS = {
     "6/pyOS-approved",
     "7/under-joss-review",
     "8/joss-review-complete",
     "9/joss-approved",
 }
+
+# These labels indicate a package is accepted by JOSS
 JOSS_ACCEPTED_LABELS = {"9/joss-approved"}
+
+# These labels indicate a package has been submitted to JOSS
 JOSS_SUBMITTED_LABELS = {
     "7/under-joss-review",
     "8/joss-review-complete",
@@ -138,7 +142,6 @@ def process_submissions(submission_type, labels):
 
 def set_review_status(labels, issue_map):
     """Determines the review status of an issue based on the given label values.
-
 
     Parameters
     ----------
